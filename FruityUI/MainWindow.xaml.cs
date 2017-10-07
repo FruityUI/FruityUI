@@ -17,6 +17,8 @@ using System.Windows.Shapes;
 using System.Reflection;
 using System.Collections;
 using Newtonsoft.Json;
+using System.Threading;
+using System.Diagnostics;
 
 namespace FruityUI
 {
@@ -32,7 +34,6 @@ namespace FruityUI
         private List<string> loadedLibraries = new List<string>();
         private List<FruityUI.IPlugin> plugins = new List<FruityUI.IPlugin>();
         private FruityUI.Core core;
-        private ToolBar tb = new ToolBar();
         private Dictionary<string, dynamic> settings = new Dictionary<string, dynamic>();
 
         public MainWindow()
@@ -75,6 +76,13 @@ namespace FruityUI
                 getLibrary();
             };
 
+            button1.Click += (s, e) =>
+            {
+                Properties.Settings.Default.settings = "[]";
+                Properties.Settings.Default.dlls = "";
+                Properties.Settings.Default.Save();
+            };
+
         }
 
         private void getLibrary()
@@ -84,7 +92,10 @@ namespace FruityUI
             ofd.Filter = "(IPlugin) | *.dll";
             ofd.ShowDialog();
             if(!string.IsNullOrEmpty(ofd.FileName) && ofd.CheckFileExists)
+            {
                 loadLibrary(ofd.FileName);
+                return;
+            }
             MessageBox.Show("No DLL file was loaded");
         }
 

@@ -34,6 +34,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>FruityUI.App</StartupObject>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Core">
       <HintPath>..\Core\bin\Debug\Core.dll</HintPath>
