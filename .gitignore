@@ -3,11 +3,11 @@
 *.userosscache
 *.sln.docstates
 
-FruityUI\obj
-FruityUI\bin
-IPlugin\obj
-IPlugin\bin
-Plugin\obj
-Plugin\bin
-Core\bin
-Core\obj
+FruityUI/obj
+FruityUI/bin
+IPlugin/obj
+IPlugin/bin
+Plugin/obj
+Plugin/bin
+Core/bin
+Core/obj
