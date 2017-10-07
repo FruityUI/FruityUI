@@ -10,6 +10,9 @@ namespace FruityUI
     public interface IPlugin
     {
 
+        string name { get; }
+        string description { get; }
+
     }
 
 }

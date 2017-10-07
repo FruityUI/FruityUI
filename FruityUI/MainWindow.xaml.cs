@@ -28,65 +28,80 @@ namespace FruityUI
     public partial class MainWindow : Window
     {
 
-        private List<string> DynamicLinkLibrary;
+        private List<string> DynamicLinkLibrary = new List<string>();
         private List<FruityUI.IPlugin> plugins = new List<FruityUI.IPlugin>();
-
+        private OpenFileDialog ofd;
+        private FruityUI.Core core;
 
         public MainWindow()
         {
+            core = new FruityUI.Core(this);
 
             if (!string.IsNullOrEmpty(Properties.Settings.Default.dlls))
                 DynamicLinkLibrary = new List<string>(Properties.Settings.Default.dlls.Split('|'));
-            else DynamicLinkLibrary = new List<string>();
 
-            OpenFileDialog ofd = new OpenFileDialog();
-            ofd.Filter = "Dynamic Link Library (IPlugin) | *.dll";
-            ofd.ShowDialog();
-
-            if (!string.IsNullOrEmpty(ofd.FileName) && ofd.CheckFileExists)
-                loadLibrary(ofd.FileName);
-
-
-            foreach(string dll in DynamicLinkLibrary)
-            {
-                Assembly a = Assembly.LoadFile(dll);
-
-                foreach(Type i in a.GetExportedTypes())
-                {
-
-                    if (typeof(IPlugin).IsAssignableFrom(i))
-                    {
-                        Activator.CreateInstance(i);
-                        break;
-                    }
-                }
-            }
+            if(DynamicLinkLibrary.Count() >= 1)
+                LoadLibraries();
 
             Closing += save;
 
 
         }
 
+        public void ehh() { }
+
+        private void getLibrary()
+        {
+            ofd = new OpenFileDialog();
+            ofd.Filter = "(IPlugin) | *.dll";
+            if(!string.IsNullOrEmpty(ofd.FileName) && ofd.CheckFileExists)
+            {
+                loadLibrary(ofd.FileName);
+            }
+        }
+
+        private void LoadLibraries()
+        {
+            foreach(string dll in DynamicLinkLibrary.ToList())
+                loadLibrary(dll);
+        }
+
         private void save(Object sender, System.ComponentModel.CancelEventArgs e)
         {
+            // remove duplicates
+            DynamicLinkLibrary = DynamicLinkLibrary.Distinct().ToList();
             Properties.Settings.Default.dlls = string.Join("|", DynamicLinkLibrary);
             Properties.Settings.Default.Save();
         }
+
 
         private void loadLibrary(string i)
         {
 
             try
             {
-
                 Assembly a = Assembly.LoadFile(i);
 
                 foreach(Type t in a.GetTypes())
                 {
+                    if(plugins.IndexOf(t as FruityUI.IPlugin) > -1)
+                    {
+                        Console.WriteLine("Duplicate plugin found. Could not load");
+                        continue;
+                    }
                     if (!t.IsClass) continue;
                     if (t.GetInterfaces().Contains(typeof(FruityUI.IPlugin)))
                     {
-                        plugins.Add((Activator.CreateInstance(t) as FruityUI.IPlugin));
+                        try
+                        {
+                            plugins.Add((Activator.CreateInstance(t, core) as FruityUI.IPlugin));
+                        }catch(Exception ex)
+                        {
+                            MessageBox.Show("Error occured within the plugin '" + t.Assembly.FullName + "'. " + ex.Message);
+                            return;
+                        }
+                        DynamicLinkLibrary.Add(i);
+                        Console.WriteLine("Plugin <{0}> loaded.", t.Name);
                         return;
                     }
                 }

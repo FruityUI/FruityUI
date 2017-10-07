@@ -35,6 +35,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Core">
+      <HintPath>..\Core\bin\Debug\Core.dll</HintPath>
+    </Reference>
     <Reference Include="IPlugin">
       <HintPath>..\IPlugin\bin\Debug\IPlugin.dll</HintPath>
     </Reference>
