@@ -26,7 +26,10 @@ namespace FruityUI
             settings = _settings;
         }
 
-        public void updateSettings(ISettings i) => dbUpdate(this, i);
+        public void updateSettings(ISettings i)
+        {
+            dbUpdate(this, i);
+        }
 
         public void getSettings(ISettings i)
         {
@@ -61,7 +64,10 @@ namespace FruityUI
 
         }
 
-        public List<Window> getWindows() => windows;
+        public List<Window> getWindows()
+        {
+            return windows;
+        }
 
         public Window createNewWindow(string name, int width, int height, int x = 0, int y = 0, bool hidden = false)
         {
