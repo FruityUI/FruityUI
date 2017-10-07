@@ -121,6 +121,11 @@ namespace FruityUI
             List<Window> windows = core.getWindows();
             foreach (Window w in windows)
                 w.Close();
+            foreach(IPlugin plugin in plugins)
+            {
+                plugin.Dispose();
+            }
+            plugins.Clear();
             windows.Clear();
             Environment.Exit(0);
         }

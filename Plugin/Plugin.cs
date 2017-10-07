@@ -9,6 +9,7 @@ using System.Windows;
 using System.Windows.Controls;
 using Newtonsoft.Json;
 using System.Reflection;
+using System.Windows.Documents;
 
 namespace Plugin
 {
@@ -19,7 +20,7 @@ namespace Plugin
         private string _database;
         public string database { get { return _database; } }
 
-        public string something { get; set; }
+        public string savedText { get; set; }
 
         public Settings(string name)
         {
@@ -28,12 +29,12 @@ namespace Plugin
 
     }
 
-    public class Plugin : FruityUI.IPlugin
+    public class Plugin : FruityUI.IPlugin, IDisposable
     {
 
         private string _name = "ExamplePlugin";
         private string _author = "LegitSoulja";
-        private string _description = "";
+        private string _description = "Just an example";
 
         public string name { get { return _name; } }
         public string description { get { return _description;  } }
@@ -52,13 +53,44 @@ namespace Plugin
             core.getSettings(settings); // fill fields from database
             core.updateSettings(settings); // update settings (If any changes was made)
             w = core.createNewWindow(_name, 200, 300, 20, 20);
-            Console.WriteLine(settings.something);
-            TextBox t = new TextBox();
-            t.Text = "Sample";
             StackPanel p = new StackPanel();
-            p.Children.Add(t);
+
+            RichTextBox tb = new RichTextBox();
+
+            tb.Document.Blocks.Clear();
+
+            Style noSpaceStyle = new Style(typeof(Paragraph));
+            noSpaceStyle.Setters.Add(new Setter(Paragraph.MarginProperty, new Thickness(0)));
+            tb.Resources.Add(typeof(Paragraph), noSpaceStyle);
+
+
+            tb.Height = w.Height;
+            tb.Width = w.Width;
+
+            p.Children.Add(tb);
+
+            if (!string.IsNullOrEmpty(settings.savedText))
+                tb.Document.Blocks.Add(new Paragraph(new Run(settings.savedText)));
+
+            tb.TextChanged += (s, e) =>
+            {
+                TextRange a = new TextRange(tb.Document.ContentStart, tb.Document.ContentEnd);
+                settings.savedText = a.Text.ToString();
+            };
+
             p.UpdateLayout();
             w.Content = p;
+        }
+
+        ~Plugin()
+        {
+            Dispose();
+        }
+
+        public void Dispose()
+        {
+            core.updateSettings(settings);
+            GC.SuppressFinalize(this);
         }
 
 

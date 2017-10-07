@@ -40,6 +40,7 @@ namespace FruityUI
                 {
                     Type t = i.GetType();
                     PropertyInfo prop = t.GetProperty(a.Name);
+                    if (prop == null) continue;
                     if (!prop.CanWrite) continue;
                     string insert = (string)a.Value;
                     prop.SetValue(i, insert, null);

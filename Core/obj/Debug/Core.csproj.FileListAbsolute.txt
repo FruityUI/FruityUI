@@ -1,0 +1,11 @@
+C:\Users\LegitSoulja\Documents\Visual Studio 2015\Projects\FruityUI\Core\bin\Debug\Core.dll
+C:\Users\LegitSoulja\Documents\Visual Studio 2015\Projects\FruityUI\Core\bin\Debug\Core.pdb
+C:\Users\LegitSoulja\Documents\Visual Studio 2015\Projects\FruityUI\Core\obj\Debug\Core.dll
+C:\Users\LegitSoulja\Documents\Visual Studio 2015\Projects\FruityUI\Core\obj\Debug\Core.pdb
+C:\Users\LegitSoulja\Documents\Visual Studio 2015\Projects\FruityUI\Core\obj\Debug\Core.csprojResolveAssemblyReference.cache
+C:\Users\LegitSoulja\Documents\Visual Studio 2015\Projects\FruityUI\Core\bin\Debug\IPlugin.dll
+C:\Users\LegitSoulja\Documents\Visual Studio 2015\Projects\FruityUI\Core\bin\Debug\IPlugin.pdb
+C:\Users\LegitSoulja\Documents\Visual Studio 2015\Projects\FruityUI\Core\bin\Debug\ISettings.dll
+C:\Users\LegitSoulja\Documents\Visual Studio 2015\Projects\FruityUI\Core\bin\Debug\ISettings.pdb
+C:\Users\LegitSoulja\Documents\Visual Studio 2015\Projects\FruityUI\Core\bin\Debug\Newtonsoft.Json.dll
+C:\Users\LegitSoulja\Documents\Visual Studio 2015\Projects\FruityUI\Core\bin\Debug\Newtonsoft.Json.xml

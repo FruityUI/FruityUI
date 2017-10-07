@@ -7,12 +7,14 @@ using System.Threading.Tasks;
 namespace FruityUI
 {
 
-    public interface IPlugin
+    public interface IPlugin : IDisposable
     {
 
         string name { get; }
         string author { get; }
         string description { get; }
+
+        new void Dispose();
 
     }
 
