@@ -32,9 +32,12 @@ namespace FruityUI
         private List<FruityUI.IPlugin> plugins = new List<FruityUI.IPlugin>();
         private OpenFileDialog ofd;
         private FruityUI.Core core;
+        private ToolBar tb;
 
         public MainWindow()
         {
+            this.Hide();
+            this.ShowInTaskbar = true;
             core = new FruityUI.Core(this);
 
             if (!string.IsNullOrEmpty(Properties.Settings.Default.dlls))

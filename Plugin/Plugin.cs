@@ -25,9 +25,10 @@ namespace Plugin
         public Plugin(Core _core)
         {
             core = _core;
-            w = core.createNewWindow(_name, 200, 300);
+            w = core.createNewWindow(_name, 200, 300, 20, 20);
 
             TextBox t = new TextBox();
+            t.Text = "Sample";
             StackPanel p = new StackPanel();
             p.Children.Add(t);
             p.UpdateLayout();
