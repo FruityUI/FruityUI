@@ -34,8 +34,7 @@ namespace FruityUI
         private OpenFileDialog ofd;
         private FruityUI.Core core;
         private ToolBar tb = new ToolBar();
-        private List<ISettings> settings = new List<ISettings>();
-        private Dictionary<string, dynamic> setkeys = new Dictionary<string, dynamic>();
+        private Dictionary<string, dynamic> settings = new Dictionary<string, dynamic>();
 
         public MainWindow()
         {
@@ -43,33 +42,33 @@ namespace FruityUI
 
             if(!string.IsNullOrEmpty(Properties.Settings.Default.settings))
             {
-                // todo: Restore settings 
-                dynamic p = JsonConvert.DeserializeObject<dynamic>(Properties.Settings.Default.settings);
-                foreach(dynamic o in p)
+                if (Properties.Settings.Default.settings.Length > 2)
                 {
-                    object data = o.data;
-                    string name = o.database;
-                    setkeys.Add(name, data);
+                    dynamic d = JsonConvert.DeserializeObject(Properties.Settings.Default.settings);
+                    foreach(var i in d)
+                    {
+                        string a = i.Key;
+                        string o = i.Value;
+                        dynamic b = JsonConvert.DeserializeObject(o);
+                        settings.Add(a,b);
+                    }
                 }
-
             }
 
 
             this.WindowState = WindowState.Minimized;
             this.ShowInTaskbar = true;
-            core = new FruityUI.Core(setkeys);
+            core = new FruityUI.Core(settings);
 
             core.dbUpdate += (s, e) =>
             {
-                int i = settings.FindIndex(c => c.database == e.database);
-                if(i > -1)
+
+                if (settings.ContainsKey(e.database))
                 {
-                    Console.WriteLine("#Update " + settings[i].database + " > " + e.database);
-                    settings[i] = e;
+                    settings[e.database] = JsonConvert.SerializeObject(e);
                 }else
                 {
-                    Console.WriteLine("New database added " + e.database);
-                    settings.Add(e);
+                    settings.Add(e.database, JsonConvert.SerializeObject(e));
                 }
                 save();
             };
@@ -86,8 +85,6 @@ namespace FruityUI
             {
                 getLibrary();
             };
-
-
 
         }
 

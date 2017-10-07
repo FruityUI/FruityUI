@@ -13,3 +13,6 @@ Plugin/obj
 Plugin/bin
 Core/bin
 Core/obj
+ISettings/obj
+ISettings/bin
+

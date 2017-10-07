@@ -10,7 +10,6 @@ namespace FruityUI
     public interface ISettings
     {
         string database { get; }
-        dynamic data { get; }
     }
 
 }

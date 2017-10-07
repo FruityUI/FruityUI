@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using Newtonsoft;
+using Newtonsoft.Json;
+using System.Reflection;
 
 namespace FruityUI
 {
@@ -28,11 +31,23 @@ namespace FruityUI
             dbUpdate(this, i);
         }
 
-        public dynamic getSettings(string name)
+        public void getSettings(ISettings i)
         {
-            if(settings.ContainsKey(name))
-                return settings[name];
-            return null;
+            if (settings.ContainsKey(i.database))
+            {
+                // Console.WriteLine(JsonConvert.SerializeObject(settings[i.database]));
+                dynamic data = settings[i.database];
+                foreach(Newtonsoft.Json.Linq.JProperty a in data)
+                {
+                    PropertyInfo prop = i.GetType().GetProperty(a.Name, BindingFlags.Public | BindingFlags.Instance);
+                    if(prop != null && prop.CanWrite)
+                    {
+                        prop.SetValue(i, a.Value, null);
+                    }
+                }
+
+            }
+
         }
 
         public List<Window> getWindows()

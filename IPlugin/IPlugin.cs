@@ -11,9 +11,8 @@ namespace FruityUI
     {
 
         string name { get; }
+        string author { get; }
         string description { get; }
-
-        ISettings getSettings();
 
     }
 
