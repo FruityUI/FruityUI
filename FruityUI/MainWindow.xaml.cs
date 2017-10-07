@@ -35,6 +35,7 @@ namespace FruityUI
         private List<FruityUI.IPlugin> plugins = new List<FruityUI.IPlugin>();
         private FruityUI.Core core;
         private Dictionary<string, dynamic> settings = new Dictionary<string, dynamic>();
+        private bool up4reset = false;
 
         public MainWindow()
         {
@@ -78,6 +79,7 @@ namespace FruityUI
 
             button1.Click += (s, e) =>
             {
+                up4reset = true;
                 Properties.Settings.Default.settings = "[]";
                 Properties.Settings.Default.dlls = "";
                 Properties.Settings.Default.Save();
@@ -110,8 +112,11 @@ namespace FruityUI
         {
             // remove duplicates
             DynamicLinkLibrary = DynamicLinkLibrary.Distinct().ToList();
-            Properties.Settings.Default.dlls = string.Join("|", DynamicLinkLibrary);
-            Properties.Settings.Default.settings = JsonConvert.SerializeObject(settings.ToList());
+            if (!up4reset)
+            {
+                Properties.Settings.Default.dlls = string.Join("|", DynamicLinkLibrary);
+                Properties.Settings.Default.settings = JsonConvert.SerializeObject(settings.ToList());
+            }
             Properties.Settings.Default.Save();
         }
 
@@ -122,9 +127,7 @@ namespace FruityUI
             foreach (Window w in windows)
                 w.Close();
             foreach(IPlugin plugin in plugins)
-            {
                 plugin.Dispose();
-            }
             plugins.Clear();
             windows.Clear();
             Environment.Exit(0);
