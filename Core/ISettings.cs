@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace FruityUI
 {
-
     public interface ISettings
     {
         string database { get; }
     }
-
 }

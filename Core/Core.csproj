@@ -30,13 +30,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="IPlugin, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\IPlugin\bin\Debug\IPlugin.dll</HintPath>
-    </Reference>
-    <Reference Include="ISettings">
-      <HintPath>..\ISettings\bin\Debug\ISettings.dll</HintPath>
-    </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\YoutubeDashboard\YoutubeDashboard\bin\Debug\Newtonsoft.Json.dll</HintPath>
@@ -56,6 +49,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Core.cs" />
+    <Compile Include="IPlugin.cs" />
+    <Compile Include="ISettings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
