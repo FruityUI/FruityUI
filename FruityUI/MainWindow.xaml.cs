@@ -31,7 +31,6 @@ namespace FruityUI
         private List<string> DynamicLinkLibrary = new List<string>();
         private List<string> loadedLibraries = new List<string>();
         private List<FruityUI.IPlugin> plugins = new List<FruityUI.IPlugin>();
-        private OpenFileDialog ofd;
         private FruityUI.Core core;
         private ToolBar tb = new ToolBar();
         private Dictionary<string, dynamic> settings = new Dictionary<string, dynamic>();
@@ -46,12 +45,7 @@ namespace FruityUI
                 {
                     dynamic d = JsonConvert.DeserializeObject(Properties.Settings.Default.settings);
                     foreach(var i in d)
-                    {
-                        string a = i.Key;
-                        string o = i.Value;
-                        dynamic b = JsonConvert.DeserializeObject(o);
-                        settings.Add(a,b);
-                    }
+                        settings.Add((string)i.Key, JsonConvert.DeserializeObject((string)i.Value));
                 }
             }
 
@@ -63,13 +57,8 @@ namespace FruityUI
             core.dbUpdate += (s, e) =>
             {
 
-                if (settings.ContainsKey(e.database))
-                {
-                    settings[e.database] = JsonConvert.SerializeObject(e);
-                }else
-                {
-                    settings.Add(e.database, JsonConvert.SerializeObject(e));
-                }
+                if (settings.ContainsKey(e.database)) settings[e.database] = JsonConvert.SerializeObject(e);
+                else settings.Add(e.database, JsonConvert.SerializeObject(e));
                 save();
             };
 
@@ -90,11 +79,13 @@ namespace FruityUI
 
         private void getLibrary()
         {
-            ofd = new OpenFileDialog();
+
+            OpenFileDialog ofd = new OpenFileDialog();
             ofd.Filter = "(IPlugin) | *.dll";
             ofd.ShowDialog();
             if(!string.IsNullOrEmpty(ofd.FileName) && ofd.CheckFileExists)
                 loadLibrary(ofd.FileName);
+            MessageBox.Show("No DLL file was loaded");
         }
 
         private void LoadLibraries()
@@ -126,7 +117,7 @@ namespace FruityUI
 
         private void loadLibrary(string i)
         {
-
+            // todo, use AppDomain to be able to dispose/reload plugins
             try
             {
                 Assembly a = Assembly.LoadFile(i);

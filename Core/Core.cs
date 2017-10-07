@@ -26,13 +26,23 @@ namespace FruityUI
             settings = _settings;
         }
 
-        public void updateSettings(ISettings i)
-        {
-            dbUpdate(this, i);
-        }
+        public void updateSettings(ISettings i) => dbUpdate(this, i);
 
         public void getSettings(ISettings i)
         {
+            if (settings.ContainsKey(i.database))
+            {
+                dynamic data = settings[i.database];
+                foreach (Newtonsoft.Json.Linq.JProperty a in data)
+                {
+                    Type t = i.GetType();
+                    PropertyInfo prop = t.GetProperty(a.Name);
+                    if (!prop.CanWrite) continue;
+                    string insert = (string)a.Value;
+                    prop.SetValue(i, insert, null);
+                }
+            }
+            /*
             if (settings.ContainsKey(i.database))
             {
                 // Console.WriteLine(JsonConvert.SerializeObject(settings[i.database]));
@@ -47,13 +57,11 @@ namespace FruityUI
                 }
 
             }
+            */
 
         }
 
-        public List<Window> getWindows()
-        {
-            return windows;
-        }
+        public List<Window> getWindows() => windows;
 
         public Window createNewWindow(string name, int width, int height, int x = 0, int y = 0, bool hidden = false)
         {

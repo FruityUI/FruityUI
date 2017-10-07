@@ -19,6 +19,8 @@ namespace Plugin
         private string _database;
         public string database { get { return _database; } }
 
+        public string something { get; set; }
+
         public Settings(string name)
         {
             _database = name;
@@ -50,7 +52,7 @@ namespace Plugin
             core.getSettings(settings); // fill fields from database
             core.updateSettings(settings); // update settings (If any changes was made)
             w = core.createNewWindow(_name, 200, 300, 20, 20);
-
+            Console.WriteLine(settings.something);
             TextBox t = new TextBox();
             t.Text = "Sample";
             StackPanel p = new StackPanel();
