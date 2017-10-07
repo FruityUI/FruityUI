@@ -3,6 +3,8 @@
 *.userosscache
 *.sln.docstates
 
+.vs
+FruityUI.sln.cache
 FruityUI/obj
 FruityUI/bin
 IPlugin/obj
