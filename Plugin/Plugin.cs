@@ -90,6 +90,8 @@ namespace Plugin
         public void Dispose()
         {
             core.updateSettings(settings);
+            settings = null;
+            core = null;
             GC.SuppressFinalize(this);
         }
 
