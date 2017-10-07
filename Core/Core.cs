@@ -72,23 +72,15 @@ namespace FruityUI
             SetWindowPos(hWnd, HWND_BOTTOM, 0, 0, 0,0, SWP_NOSIZE | SWP_NOMOVE | SWP_NOACTIVATE);
         }
 
-        private MenuItem close = new MenuItem()
-        {
-            Header = "Close"
-        };
 
-        private MenuItem info = new MenuItem()
-        {
-            Header = "Info"
-        };
-
-        private MenuItem reload = new MenuItem()
-        {
-            Header = "Reload Plugin"
-        };
 
         public Window createNewWindow(string name, int width, int height, int x = 0, int y = 0, bool hidden = false)
         {
+
+            MenuItem close = new MenuItem()
+            {
+                Header = "Close"
+            };
 
             ContextMenu menu = new ContextMenu();
 
