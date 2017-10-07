@@ -29,14 +29,16 @@ namespace FruityUI
     {
 
         private List<string> DynamicLinkLibrary = new List<string>();
+        private List<string> loadedLibraries = new List<string>();
         private List<FruityUI.IPlugin> plugins = new List<FruityUI.IPlugin>();
-        private List<Window> windows = new List<Window>();
         private OpenFileDialog ofd;
         private FruityUI.Core core;
         private ToolBar tb = new ToolBar();
 
         public MainWindow()
         {
+            InitializeComponent();
+
             this.WindowState = WindowState.Minimized;
             this.ShowInTaskbar = true;
             core = new FruityUI.Core();
@@ -49,10 +51,11 @@ namespace FruityUI
 
             Closing += terminate;
 
-            core.onWindowInit += (s, e) =>
+            button.Click += (s, e) =>
             {
-                windows.Add(e);
+                getLibrary();
             };
+
 
         }
 
@@ -60,6 +63,7 @@ namespace FruityUI
         {
             ofd = new OpenFileDialog();
             ofd.Filter = "(IPlugin) | *.dll";
+            ofd.ShowDialog();
             if(!string.IsNullOrEmpty(ofd.FileName) && ofd.CheckFileExists)
                 loadLibrary(ofd.FileName);
         }
@@ -81,8 +85,10 @@ namespace FruityUI
         private void terminate(Object sender, System.ComponentModel.CancelEventArgs e)
         {
             save();
+            List<Window> windows = core.getWindows();
             foreach (Window w in windows)
                 w.Close();
+            windows.Clear();
             Environment.Exit(0);
         }
 
@@ -96,12 +102,12 @@ namespace FruityUI
 
                 foreach(Type t in a.GetTypes())
                 {
-                    if(plugins.IndexOf(t as FruityUI.IPlugin) > -1)
+                    if (!t.IsClass && t.IsNotPublic) continue;
+                    if (plugins.IndexOf(t as FruityUI.IPlugin) > -1 || loadedLibraries.IndexOf(i) > -1)
                     {
-                        Console.WriteLine("Duplicate plugin found. Could not load");
-                        continue;
+                        MessageBox.Show("Duplicate plugin found. Ignored loading another instance.");
+                        return;
                     }
-                    if (!t.IsClass) continue;
                     if (t.GetInterfaces().Contains(typeof(FruityUI.IPlugin)))
                     {
                         try
@@ -113,6 +119,7 @@ namespace FruityUI
                             return;
                         }
                         DynamicLinkLibrary.Add(i);
+                        loadedLibraries.Add(i);
                         Console.WriteLine("Plugin <{0}> loaded.", t.Name);
                         return;
                     }else
@@ -122,7 +129,7 @@ namespace FruityUI
                     }
                 }
 
-                throw new Exception("Invalid DLL, Interface not found!");
+                MessageBox.Show("Invalid dynamic link library @ " + i);
 
             }catch(Exception ex)
             {

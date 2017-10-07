@@ -12,11 +12,11 @@ namespace FruityUI
     public class Core
     {
 
-        public event EventHandler<Window> onWindowInit;
+        private List<Window> windows = new List<Window>();
 
-        public Core()
+        public List<Window> getWindows()
         {
-
+            return windows;
         }
 
         public Window createNewWindow(string name, int width, int height, int x = 0, int y = 0, bool hidden = false)
@@ -40,7 +40,6 @@ namespace FruityUI
             };
 
             menu.Items.Add(close);
-
 
             Window w = new Window();
 
@@ -75,7 +74,8 @@ namespace FruityUI
             w.Activate();
             if(!hidden)
                 w.Show();
-            onWindowInit(this, w);
+
+            windows.Add(w);
             return w;
         }
 
