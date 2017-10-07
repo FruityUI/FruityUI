@@ -12,11 +12,11 @@ namespace FruityUI
     public class Core
     {
 
-        protected static FruityUI.MainWindow window;
+        public event EventHandler<Window> onWindowInit;
 
-        public Core(FruityUI.MainWindow w)
+        public Core()
         {
-            window = w;
+
         }
 
         public Window createNewWindow(string name, int width, int height, int x = 0, int y = 0, bool hidden = false)
@@ -46,14 +46,9 @@ namespace FruityUI
 
             w.MouseUp += (s, e) =>
             {
-                Console.WriteLine("clicked");
                 if(e.RightButton == System.Windows.Input.MouseButtonState.Released && e.LeftButton != System.Windows.Input.MouseButtonState.Released)
                 {
-                    if (menu.IsOpen)
-                    {
-                        menu.IsOpen = false;
-                        return;
-                    }
+                    if (menu.IsOpen) return;
                     menu.IsOpen = true;
                 }
                 menu.IsOpen = false;
@@ -80,6 +75,7 @@ namespace FruityUI
             w.Activate();
             if(!hidden)
                 w.Show();
+            onWindowInit(this, w);
             return w;
         }
 

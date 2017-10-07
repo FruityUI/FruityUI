@@ -30,15 +30,16 @@ namespace FruityUI
 
         private List<string> DynamicLinkLibrary = new List<string>();
         private List<FruityUI.IPlugin> plugins = new List<FruityUI.IPlugin>();
+        private List<Window> windows = new List<Window>();
         private OpenFileDialog ofd;
         private FruityUI.Core core;
-        private ToolBar tb;
+        private ToolBar tb = new ToolBar();
 
         public MainWindow()
         {
-            this.Hide();
+            this.WindowState = WindowState.Minimized;
             this.ShowInTaskbar = true;
-            core = new FruityUI.Core(this);
+            core = new FruityUI.Core();
 
             if (!string.IsNullOrEmpty(Properties.Settings.Default.dlls))
                 DynamicLinkLibrary = new List<string>(Properties.Settings.Default.dlls.Split('|'));
@@ -46,21 +47,21 @@ namespace FruityUI
             if(DynamicLinkLibrary.Count() >= 1)
                 LoadLibraries();
 
-            Closing += save;
+            Closing += terminate;
 
+            core.onWindowInit += (s, e) =>
+            {
+                windows.Add(e);
+            };
 
         }
-
-        public void ehh() { }
 
         private void getLibrary()
         {
             ofd = new OpenFileDialog();
             ofd.Filter = "(IPlugin) | *.dll";
             if(!string.IsNullOrEmpty(ofd.FileName) && ofd.CheckFileExists)
-            {
                 loadLibrary(ofd.FileName);
-            }
         }
 
         private void LoadLibraries()
@@ -69,12 +70,20 @@ namespace FruityUI
                 loadLibrary(dll);
         }
 
-        private void save(Object sender, System.ComponentModel.CancelEventArgs e)
+        private void save()
         {
             // remove duplicates
             DynamicLinkLibrary = DynamicLinkLibrary.Distinct().ToList();
             Properties.Settings.Default.dlls = string.Join("|", DynamicLinkLibrary);
             Properties.Settings.Default.Save();
+        }
+
+        private void terminate(Object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            save();
+            foreach (Window w in windows)
+                w.Close();
+            Environment.Exit(0);
         }
 
 
@@ -105,6 +114,10 @@ namespace FruityUI
                         }
                         DynamicLinkLibrary.Add(i);
                         Console.WriteLine("Plugin <{0}> loaded.", t.Name);
+                        return;
+                    }else
+                    {
+                        MessageBox.Show("Plugin loaded does not extend IPlugin");
                         return;
                     }
                 }
