@@ -9,6 +9,8 @@ using System.Windows.Media;
 using Newtonsoft;
 using Newtonsoft.Json;
 using System.Reflection;
+using System.Runtime.InteropServices;
+using System.Windows.Interop;
 
 namespace FruityUI
 {
@@ -46,53 +48,71 @@ namespace FruityUI
                     prop.SetValue(i, insert, null);
                 }
             }
-            /*
-            if (settings.ContainsKey(i.database))
-            {
-                // Console.WriteLine(JsonConvert.SerializeObject(settings[i.database]));
-                dynamic data = settings[i.database];
-                foreach(Newtonsoft.Json.Linq.JProperty a in data)
-                {
-                    PropertyInfo prop = i.GetType().GetProperty(a.Name, BindingFlags.Public | BindingFlags.Instance);
-                    if(prop != null && prop.CanWrite)
-                    {
-                        prop.SetValue(i, a.Value, null);
-                    }
-                }
-
-            }
-            */
-
         }
+
 
         public List<Window> getWindows()
         {
             return windows;
         }
 
+        [DllImport("user32.dll")]
+        static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int X,
+           int Y, int cx, int cy, uint uFlags);
+
+        const UInt32 SWP_NOSIZE = 0x0001;
+        const UInt32 SWP_NOMOVE = 0x0002;
+        const UInt32 SWP_NOACTIVATE = 0x0010;
+
+        static readonly IntPtr HWND_BOTTOM = new IntPtr(1);
+
+        public static void SetBottom(Window window)
+        {
+            IntPtr hWnd = new WindowInteropHelper(window).Handle;
+            SetWindowPos(hWnd, HWND_BOTTOM, 0, 0, 0,0, SWP_NOSIZE | SWP_NOMOVE | SWP_NOACTIVATE);
+        }
+
+        private MenuItem close = new MenuItem()
+        {
+            Header = "Close"
+        };
+
+        private MenuItem info = new MenuItem()
+        {
+            Header = "Info"
+        };
+
+        private MenuItem reload = new MenuItem()
+        {
+            Header = "Reload Plugin"
+        };
+
         public Window createNewWindow(string name, int width, int height, int x = 0, int y = 0, bool hidden = false)
         {
 
             ContextMenu menu = new ContextMenu();
 
-            MenuItem close = new MenuItem()
-            {
-                Header = "Close"
-            };
-
-            MenuItem info = new MenuItem()
-            {
-                Header = "Info"
-            };
-
-            MenuItem reload = new MenuItem()
-            {
-                Header = "Reload Plugin"
-            };
-
             menu.Items.Add(close);
 
-            Window w = new Window();
+            SolidColorBrush color = new SolidColorBrush();
+            color.Opacity = 0.5;
+            color.Color = Colors.White;
+
+            Window w = new Window() {
+                AllowsTransparency = true,
+                WindowStyle = WindowStyle.None,
+                ContextMenu = menu,
+                Title = name,
+                ShowInTaskbar = false,
+                Width = width,
+                Height = height,
+                Left = x,
+                Top = y,
+                Background = color
+            };
+            w.Hide();
+
+            SetBottom(w);
 
             w.MouseUp += (s, e) =>
             {
@@ -104,26 +124,9 @@ namespace FruityUI
                 menu.IsOpen = false;
             };
 
-            close.Click += (s, e) =>
-            {
-                w.Close();
-            };
+            close.Click += (s, e) => w.Close();
 
-            w.ContextMenu = menu;
-            w.AllowsTransparency = true;
-            w.Title = name;
-            w.ShowInTaskbar = false;
-            w.Width = width;
-            w.Height = height;
-            w.WindowStyle = WindowStyle.None;
-            w.Left = x;
-            w.Top = y;
-            SolidColorBrush color = new SolidColorBrush();
-            color.Opacity = 0.5;
-            color.Color = Colors.White;
-            w.Background = color;
-            w.Activate();
-            if(!hidden)
+            if (!hidden)
                 w.Show();
 
             windows.Add(w);
@@ -131,4 +134,5 @@ namespace FruityUI
         }
 
     }
+
 }
