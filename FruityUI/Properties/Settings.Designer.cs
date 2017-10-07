@@ -34,5 +34,17 @@ namespace FruityUI.Properties {
                 this["dlls"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string settings {
+            get {
+                return ((string)(this["settings"]));
+            }
+            set {
+                this["settings"] = value;
+            }
+        }
     }
 }

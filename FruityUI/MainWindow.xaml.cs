@@ -16,6 +16,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Reflection;
 using System.Collections;
+using Newtonsoft.Json;
 
 namespace FruityUI
 {
@@ -23,7 +24,6 @@ namespace FruityUI
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     ///
-    
 
     public partial class MainWindow : Window
     {
@@ -34,14 +34,45 @@ namespace FruityUI
         private OpenFileDialog ofd;
         private FruityUI.Core core;
         private ToolBar tb = new ToolBar();
+        private List<ISettings> settings = new List<ISettings>();
+        private Dictionary<string, dynamic> setkeys = new Dictionary<string, dynamic>();
 
         public MainWindow()
         {
             InitializeComponent();
 
+            if(!string.IsNullOrEmpty(Properties.Settings.Default.settings))
+            {
+                // todo: Restore settings 
+                dynamic p = JsonConvert.DeserializeObject<dynamic>(Properties.Settings.Default.settings);
+                foreach(dynamic o in p)
+                {
+                    object data = o.data;
+                    string name = o.database;
+                    setkeys.Add(name, data);
+                }
+
+            }
+
+
             this.WindowState = WindowState.Minimized;
             this.ShowInTaskbar = true;
-            core = new FruityUI.Core();
+            core = new FruityUI.Core(setkeys);
+
+            core.dbUpdate += (s, e) =>
+            {
+                int i = settings.FindIndex(c => c.database == e.database);
+                if(i > -1)
+                {
+                    Console.WriteLine("#Update " + settings[i].database + " > " + e.database);
+                    settings[i] = e;
+                }else
+                {
+                    Console.WriteLine("New database added " + e.database);
+                    settings.Add(e);
+                }
+                save();
+            };
 
             if (!string.IsNullOrEmpty(Properties.Settings.Default.dlls))
                 DynamicLinkLibrary = new List<string>(Properties.Settings.Default.dlls.Split('|'));
@@ -55,6 +86,7 @@ namespace FruityUI
             {
                 getLibrary();
             };
+
 
 
         }
@@ -74,11 +106,13 @@ namespace FruityUI
                 loadLibrary(dll);
         }
 
+
         private void save()
         {
             // remove duplicates
             DynamicLinkLibrary = DynamicLinkLibrary.Distinct().ToList();
             Properties.Settings.Default.dlls = string.Join("|", DynamicLinkLibrary);
+            Properties.Settings.Default.settings = JsonConvert.SerializeObject(settings.ToList());
             Properties.Settings.Default.Save();
         }
 
@@ -124,6 +158,8 @@ namespace FruityUI
                         return;
                     }else
                     {
+                        if (a.GetTypes().Last() != t)
+                            continue;
                         MessageBox.Show("Plugin loaded does not extend IPlugin");
                         return;
                     }

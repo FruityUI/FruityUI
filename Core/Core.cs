@@ -13,6 +13,27 @@ namespace FruityUI
     {
 
         private List<Window> windows = new List<Window>();
+        public event EventHandler<ISettings> dbUpdate;
+        private Dictionary<string, dynamic> settings = new Dictionary<string, dynamic>();
+
+        protected static Window fui;
+
+        public Core(Dictionary<string, dynamic> _settings)
+        {
+            settings = _settings;
+        }
+
+        public void updateSettings(ISettings i)
+        {
+            dbUpdate(this, i);
+        }
+
+        public dynamic getSettings(string name)
+        {
+            if(settings.ContainsKey(name))
+                return settings[name];
+            return null;
+        }
 
         public List<Window> getWindows()
         {

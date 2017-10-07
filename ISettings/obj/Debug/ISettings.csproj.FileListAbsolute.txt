@@ -1,0 +1,5 @@
+C:\Users\LegitSoulja\Documents\Visual Studio 2015\Projects\FruityUI\ISettings\bin\Debug\ISettings.dll
+C:\Users\LegitSoulja\Documents\Visual Studio 2015\Projects\FruityUI\ISettings\bin\Debug\ISettings.pdb
+C:\Users\LegitSoulja\Documents\Visual Studio 2015\Projects\FruityUI\ISettings\obj\Debug\ISettings.csprojResolveAssemblyReference.cache
+C:\Users\LegitSoulja\Documents\Visual Studio 2015\Projects\FruityUI\ISettings\obj\Debug\ISettings.dll
+C:\Users\LegitSoulja\Documents\Visual Studio 2015\Projects\FruityUI\ISettings\obj\Debug\ISettings.pdb

@@ -33,6 +33,9 @@
     <Reference Include="Core">
       <HintPath>..\Core\bin\Debug\Core.dll</HintPath>
     </Reference>
+    <Reference Include="ISettings">
+      <HintPath>..\ISettings\bin\Debug\ISettings.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
