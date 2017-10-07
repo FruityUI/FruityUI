@@ -48,38 +48,44 @@ namespace Plugin
 
         public Plugin(Core _core)
         {
-            core = _core;
-            settings = new Settings(_name);
-            core.getSettings(settings); // fill fields from database
-            core.updateSettings(settings); // update settings (If any changes was made)
-            w = core.createNewWindow(_name, 200, 300, 20, 20);
-            StackPanel p = new StackPanel();
-
-            RichTextBox tb = new RichTextBox();
-
-            tb.Document.Blocks.Clear();
-
-            Style noSpaceStyle = new Style(typeof(Paragraph));
-            noSpaceStyle.Setters.Add(new Setter(Paragraph.MarginProperty, new Thickness(0)));
-            tb.Resources.Add(typeof(Paragraph), noSpaceStyle);
-
-
-            tb.Height = w.Height;
-            tb.Width = w.Width;
-
-            p.Children.Add(tb);
-
-            if (!string.IsNullOrEmpty(settings.savedText))
-                tb.Document.Blocks.Add(new Paragraph(new Run(settings.savedText)));
-
-            tb.TextChanged += (s, e) =>
+            try
             {
-                TextRange a = new TextRange(tb.Document.ContentStart, tb.Document.ContentEnd);
-                settings.savedText = a.Text.ToString();
-            };
+                core = _core;
+                settings = new Settings(_name);
+                core.getSettings(settings); // fill fields from database
+                core.updateSettings(settings); // update settings (If any changes was made)
+                w = core.createNewWindow(_name, 200, 300, 20, 20);
+                StackPanel p = new StackPanel();
 
-            p.UpdateLayout();
-            w.Content = p;
+                RichTextBox tb = new RichTextBox();
+
+                tb.Document.Blocks.Clear();
+
+                Style noSpaceStyle = new Style(typeof(Paragraph));
+                noSpaceStyle.Setters.Add(new Setter(Paragraph.MarginProperty, new Thickness(0)));
+                tb.Resources.Add(typeof(Paragraph), noSpaceStyle);
+
+
+                tb.Height = w.Height;
+                tb.Width = w.Width;
+
+                p.Children.Add(tb);
+
+                if (!string.IsNullOrEmpty(settings.savedText))
+                    tb.Document.Blocks.Add(new Paragraph(new Run(settings.savedText)));
+
+                tb.TextChanged += (s, e) =>
+                {
+                    TextRange a = new TextRange(tb.Document.ContentStart, tb.Document.ContentEnd);
+                    settings.savedText = a.Text.ToString();
+                };
+
+                p.UpdateLayout();
+                w.Content = p;
+            }catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         ~Plugin()
