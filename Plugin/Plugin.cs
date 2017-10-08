@@ -29,12 +29,12 @@ namespace Plugin
 
     }
 
-    public class Plugin : FruityUI.IPlugin, IDisposable
+    public class StickyNote : FruityUI.IPlugin, IDisposable
     {
 
-        private string _name = "ExamplePlugin";
+        private string _name = "StickyNote";
         private string _author = "LegitSoulja";
-        private string _description = "Just an example";
+        private string _description = "Keep track of your notes";
 
         public string name { get { return _name; } }
         public string description { get { return _description;  } }
@@ -46,15 +46,15 @@ namespace Plugin
         protected static Core core;
         private Window w;
 
-        public Plugin(Core _core)
+        public StickyNote(Core _core)
         {
             try
             {
                 core = _core;
                 settings = new Settings(_name);
-                core.getSettings(settings); // fill fields from database
-                core.updateSettings(settings); // update settings (If any changes was made)
-                w = core.createNewWindow(_name, 200, 300, 20, 20);
+                core.getSettings(settings); 
+                core.updateSettings(settings);
+                w = core.createNewWindow(_name, 200, 300, core.screen_width - 200, 0);
                 StackPanel p = new StackPanel();
 
                 RichTextBox tb = new RichTextBox();
@@ -88,7 +88,7 @@ namespace Plugin
             }
         }
 
-        ~Plugin()
+        ~StickyNote()
         {
             Dispose();
         }
@@ -96,8 +96,6 @@ namespace Plugin
         public void Dispose()
         {
             core.updateSettings(settings);
-            settings = null;
-            core = null;
             GC.SuppressFinalize(this);
         }
 

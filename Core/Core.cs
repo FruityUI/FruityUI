@@ -21,6 +21,9 @@ namespace FruityUI
         public event EventHandler<ISettings> dbUpdate;
         private Dictionary<string, dynamic> settings = new Dictionary<string, dynamic>();
 
+        public int screen_width = Convert.ToInt32(System.Windows.SystemParameters.PrimaryScreenWidth);
+        public int screen_height = Convert.ToInt32(System.Windows.SystemParameters.PrimaryScreenHeight);
+
         protected static Window fui;
 
         public Core(Dictionary<string, dynamic> _settings)

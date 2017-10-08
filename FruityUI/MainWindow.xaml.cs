@@ -46,8 +46,13 @@ namespace FruityUI
                 if (Properties.Settings.Default.settings.Length > 2)
                 {
                     dynamic d = JsonConvert.DeserializeObject(Properties.Settings.Default.settings);
-                    foreach(var i in d)
-                        settings.Add((string)i.Key, JsonConvert.DeserializeObject((string)i.Value));
+                    foreach (var i in d)
+                    {
+                        string key = i.Key;
+                        string value = i.Value;
+                        dynamic data = JsonConvert.DeserializeObject(value);
+                        settings.Add(key, data);
+                    }
                 }
             }
 
