@@ -3,12 +3,5 @@
 *.userosscache
 *.sln.docstates
 
-.vs
-FruityUI.sln.cache
-FruityUI/obj
-FruityUI/bin
-Plugin/obj
-Plugin/bin
-Core/bin
-Core/obj
+
 
