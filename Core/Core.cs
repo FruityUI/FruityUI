@@ -11,24 +11,48 @@ using Newtonsoft.Json;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Windows.Interop;
+using System.Timers;
+
+using FruityUI.CCore.Controls;
 
 namespace FruityUI
 {
-    public class Core
+    public class Core : IDisposable
     {
 
-        private List<Window> windows = new List<Window>();
-        public event EventHandler<ISettings> dbUpdate;
+        private List<FruityWindow> windows = new List<FruityWindow>();
         private Dictionary<string, dynamic> settings = new Dictionary<string, dynamic>();
+
+        private System.Timers.Timer _onSecond = new System.Timers.Timer(1000);
+        private System.Timers.Timer _onMinute = new System.Timers.Timer(1000 * 60);
 
         public int screen_width = Convert.ToInt32(System.Windows.SystemParameters.PrimaryScreenWidth);
         public int screen_height = Convert.ToInt32(System.Windows.SystemParameters.PrimaryScreenHeight);
 
-        protected static Window fui;
+        public event EventHandler<ISettings> dbUpdate;
+        public event EventHandler<ElapsedEventArgs> onSecond;
+        public event EventHandler<ElapsedEventArgs> onMinute;
 
         public Core(Dictionary<string, dynamic> _settings)
         {
             settings = _settings;
+            _onSecond.Enabled = _onMinute.Enabled = true;
+            _onSecond.Elapsed += onSecondEvent;
+            _onMinute.Elapsed += onMinuteEvent;
+            _onSecond.Start();
+            _onMinute.Start();
+        }
+
+        private void onSecondEvent(Object s, ElapsedEventArgs e)
+        {
+            if (onSecond != null)
+                onSecond(s, e);
+        }
+
+        private void onMinuteEvent(Object s, ElapsedEventArgs e)
+        {
+            if (onSecond != null)
+                onMinute(s, e);
         }
 
         public void updateSettings(ISettings i)
@@ -53,81 +77,28 @@ namespace FruityUI
             }
         }
 
-
-        public List<Window> getWindows()
+        public List<FruityWindow> getWindows()
         {
             return windows;
         }
 
-        [DllImport("user32.dll")]
-        static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int X,
-           int Y, int cx, int cy, uint uFlags);
-
-        const UInt32 SWP_NOSIZE = 0x0001;
-        const UInt32 SWP_NOMOVE = 0x0002;
-        const UInt32 SWP_NOACTIVATE = 0x0010;
-
-        static readonly IntPtr HWND_BOTTOM = new IntPtr(1);
-
-        public static void SetBottom(Window window)
-        {
-            IntPtr hWnd = new WindowInteropHelper(window).Handle;
-            SetWindowPos(hWnd, HWND_BOTTOM, 0, 0, 0,0, SWP_NOSIZE | SWP_NOMOVE | SWP_NOACTIVATE);
-        }
-
-
-
         public Window createNewWindow(string name, int width, int height, int x = 0, int y = 0, bool hidden = false)
         {
+            FruityWindow fw = new FruityWindow(name, width, height, x, y, hidden);
+            windows.Add(fw);
+            return fw;
+        }
 
-            MenuItem close = new MenuItem()
-            {
-                Header = "Close"
-            };
+        ~Core()
+        {
+            Dispose();
+        }
 
-            ContextMenu menu = new ContextMenu();
-
-            menu.Items.Add(close);
-
-            SolidColorBrush color = new SolidColorBrush();
-            color.Opacity = 0.5;
-            color.Color = Colors.White;
-
-            Window w = new Window() {
-                AllowsTransparency = true,
-                WindowStyle = WindowStyle.None,
-                ContextMenu = menu,
-                Title = name,
-                ShowInTaskbar = false,
-                Width = width,
-                Height = height,
-                Left = x,
-                Top = y,
-                Background = color
-            };
-            w.Hide();
-
-            SetBottom(w);
-
-            w.MouseUp += (s, e) =>
-            {
-                if(e.RightButton == System.Windows.Input.MouseButtonState.Released && e.LeftButton != System.Windows.Input.MouseButtonState.Released)
-                {
-                    if (menu.IsOpen) return;
-                    menu.IsOpen = true;
-                }
-                menu.IsOpen = false;
-            };
-
-            close.Click += (s, e) => w.Close();
-
-            if (!hidden)
-                w.Show();
-
-            windows.Add(w);
-            return w;
+        public void Dispose()
+        {
+            _onSecond.Stop();
+            GC.SuppressFinalize(this);
         }
 
     }
-
 }

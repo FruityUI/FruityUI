@@ -3,5 +3,7 @@
 *.userosscache
 *.sln.docstates
 
-
-
+.vs
+ FruityUI/obj
+ Plugin/obj
+ Core/obj

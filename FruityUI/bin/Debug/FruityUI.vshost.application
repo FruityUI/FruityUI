@@ -14,14 +14,14 @@
     <framework targetVersion="4.5.2" profile="Full" supportedRuntime="4.0.30319" />
   </compatibleFrameworks>
   <dependency>
-    <dependentAssembly dependencyType="install" codebase="FruityUI.exe.manifest" size="5097">
+    <dependentAssembly dependencyType="install" codebase="FruityUI.exe.manifest" size="5098">
       <assemblyIdentity name="FruityUI.exe" version="1.0.0.3" publicKeyToken="0000000000000000" language="en" processorArchitecture="msil" type="win32" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>9f7nMRjk10/ET60jOJVWzJU8CMooD50grXk5TD7hx/Y=</dsig:DigestValue>
+        <dsig:DigestValue>aZ1qA7e72lwAGx2l2Sti5B/v3GGl8P9XE3dWFz5W5qQ=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

@@ -14,17 +14,16 @@ using System.Windows.Documents;
 namespace Plugin
 {
 
-    class Settings : ISettings
+    public class Settings : ISettings
     {
 
-        private string _database;
-        public string database { get { return _database; } }
+        public string database { get; }
 
         public string savedText { get; set; }
 
         public Settings(string name)
         {
-            _database = name;
+            database = name;
         }
 
     }
@@ -32,12 +31,13 @@ namespace Plugin
     public class StickyNote : FruityUI.IPlugin, IDisposable
     {
 
-        private string _name = "StickyNote";
-        private string _author = "LegitSoulja";
-        private string _description = "Keep track of your notes";
+
+        public const string _name = "StickyNote";
+        public const string _description = "Keep track of your notes";
+        public const string _author = "LegitSoulja";
 
         public string name { get { return _name; } }
-        public string description { get { return _description;  } }
+        public string description { get { return _description; } }
         public string author { get { return _author; } }
 
 

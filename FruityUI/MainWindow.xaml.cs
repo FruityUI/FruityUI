@@ -20,20 +20,18 @@ using Newtonsoft.Json;
 using System.Threading;
 using System.Diagnostics;
 
+using FruityUI.CCore.Controls;
+
 namespace FruityUI
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
-    ///
 
     public partial class MainWindow : Window
     {
 
         private List<string> DynamicLinkLibrary = new List<string>();
         private List<string> loadedLibraries = new List<string>();
-        private List<FruityUI.IPlugin> plugins = new List<FruityUI.IPlugin>();
-        private FruityUI.Core core;
+        private List<IPlugin> plugins = new List<IPlugin>();
+        private Core core;
         private Dictionary<string, dynamic> settings = new Dictionary<string, dynamic>();
         private bool up4reset = false;
 
@@ -128,8 +126,8 @@ namespace FruityUI
         private void terminate(Object sender, System.ComponentModel.CancelEventArgs e)
         {
             save();
-            List<Window> windows = core.getWindows();
-            foreach (Window w in windows)
+            List<FruityWindow> windows = core.getWindows();
+            foreach (FruityWindow w in windows)
                 w.Close();
             foreach(IPlugin plugin in plugins)
                 plugin.Dispose();

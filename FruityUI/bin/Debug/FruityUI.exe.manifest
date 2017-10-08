@@ -44,26 +44,26 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Core.dll" size="9216">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Core.dll" size="10752">
       <assemblyIdentity name="Core" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>3bjsIIyrfPvXP0WtdGQKRIDHVFhaUctG6e4Ky6WeJ40=</dsig:DigestValue>
+        <dsig:DigestValue>elUjgf8KyOtO+lvElck+0GUR8JJGJFi+O5hruUd+d30=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="FruityUI.exe" size="16896">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="FruityUI.exe" size="20480">
       <assemblyIdentity name="FruityUI" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>BjfrZoIzl/+0vGeTENCYvlqFSo4Qp9MSMGLgLg3CCXs=</dsig:DigestValue>
+        <dsig:DigestValue>NWTfR9PaNTY2dP0FPMF9RJiAfixRVrSoFptwsOfpatM=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
