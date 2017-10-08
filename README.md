@@ -21,6 +21,10 @@ As of now, Plugins can be developed and added to FruityUI, which will manually l
 
 If you have issues with building, it is most likely due to the improper building script, sorry. Manually use VS, or download a released build.
 
+### Plugins Repo
+
+> https://github.com/LegitSoulja/FruityUI.Plugins
+
 ### Plugin Development (IPlugin)
 
 > https://github.com/LegitSoulja/FruityUI/wiki/IPlugin
