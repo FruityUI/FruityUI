@@ -14,7 +14,7 @@ As of now, Plugins can be developed and added to FruityUI, which will manually l
 
 ### Installation
 ##### Method 1
-> http://fruityui.legitsoulja.info/
+> http://fruityui.legitsoulja.info/publish
 
 ##### Method 2
 > Execute "build.bat". Run FruityUI in FruityUI/bin/debug/FruityUI.exe
