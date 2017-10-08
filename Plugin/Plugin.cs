@@ -54,7 +54,7 @@ namespace Plugin
                 settings = new Settings(_name);
                 core.getSettings(settings); 
                 core.updateSettings(settings);
-                w = core.createNewWindow(_name, 200, 300, core.screen_width - 200, 0);
+                w = core.createNewWindow(_name, 200, 300, core.screen_width - 220, 20);
                 StackPanel p = new StackPanel();
 
                 RichTextBox tb = new RichTextBox();
