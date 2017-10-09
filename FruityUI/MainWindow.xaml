@@ -9,19 +9,18 @@
         Title="FruityUI" Height="350" Width="525" MaxHeight="350" MaxWidth="1200">
     <Grid>
         <Viewbox Margin="0" Opacity="0.0" x:Name="xMenu" Width="100" HorizontalAlignment="Left" VerticalAlignment="Top" Panel.ZIndex="1">
-            <StackPanel Width="100" RenderTransformOrigin="0.478,0.522" Background="#FF333333" Height="322" HorizontalAlignment="Left" VerticalAlignment="Top" x:Name="panel">
-                <Button Height="40" HorizontalAlignment="Left" Width="100" Background="White" IsEnabled="False" Cursor="Hand"/>
-                <Button Height="40" HorizontalAlignment="Left" Width="100" Background="#FF333333" Content="Plugins" Cursor="Hand" x:Name="plugins_btn"/>
-                <Button Height="40" HorizontalAlignment="Left" Width="100" Background="#FF333333" Content="Install Plugins" Cursor="Hand" x:Name="install_plugins_btn"/>
-                <Button Height="40" HorizontalAlignment="Left" Width="100" Background="#FF333333" Content="Settings" Cursor="Hand" x:Name="settings_btn"/>
-                <Button Height="40" HorizontalAlignment="Left" Width="100" Background="#FF333333" Content="Debug" Cursor="Hand" x:Name="debug_btn"/>
-                <Button Height="40" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="100" Margin="0 82" Content="Close" Background="#FF574F4F" x:Name="closeMenu" Cursor="Hand">
-                </Button>
+            <StackPanel Width="100" RenderTransformOrigin="0.478,0.522" Background="#333333" Height="322" HorizontalAlignment="Left" VerticalAlignment="Top" x:Name="panel">
+                <Button Height="40" HorizontalAlignment="Left" Width="100" Background="#333333" IsEnabled="False" Cursor="Hand"/>
+                <Button Height="40" HorizontalAlignment="Left" Width="100" Background="#333333" Content="Plugins" Cursor="Hand" x:Name="plugins_btn"/>
+                <Button Height="40" HorizontalAlignment="Left" Width="100" Background="#333333" Content="Install Plugins" Cursor="Hand" x:Name="install_plugins_btn"/>
+                <Button Height="40" HorizontalAlignment="Left" Width="100" Background="#333333" Content="Settings" Cursor="Hand" x:Name="settings_btn"/>
+                <Button Height="40" HorizontalAlignment="Left" Width="100" Background="#333333" Content="Debug" Cursor="Hand" x:Name="debug_btn"/>
+                <Button Height="40" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="100" Margin="0 82" Content="Close" Background="#FF574F4F" x:Name="closeMenu" Cursor="Hand"/>
             </StackPanel>
 
         </Viewbox>
 
-        <Frame VerticalAlignment="Top" HorizontalAlignment="Right" Height="319" Width="410" x:Name="frame" BorderThickness="0"  />
+        <Frame VerticalAlignment="Top" HorizontalAlignment="Right" Height="319" Width="410" x:Name="frame" BorderThickness="0" NavigationUIVisibility="Hidden" />
 
         <Rectangle x:Name="mButton" HorizontalAlignment="Left" Height="30" Stroke="Black" VerticalAlignment="Top" Width="30" StrokeThickness="0" Margin="5,5,0,0" Panel.ZIndex="5">
             <Rectangle.Fill>

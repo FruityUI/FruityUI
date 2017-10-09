@@ -32,14 +32,9 @@ namespace Plugin
     public class StickyNote : FruityUI.IPlugin, IDisposable
     {
 
-
-        public const string _name = "StickyNote";
-        public const string _description = "Keep track of your notes";
-        public const string _author = "LegitSoulja";
-
-        public string name { get { return _name; } }
-        public string description { get { return _description; } }
-        public string author { get { return _author; } }
+        public string name { get { return "StickyNote"; } }
+        public string description { get { return "Keep track of your notes"; } }
+        public string author { get { return "LegitSoulja"; } }
 
 
         private Settings settings;
@@ -53,10 +48,10 @@ namespace Plugin
             try
             {
                 core = _core;
-                settings = new Settings(_name);
+                settings = new Settings(name);
                 core.getSettings(settings); 
                 core.updateSettings(settings);
-                w = core.createNewWindow(_name, 200, 300, core.screen_width - 220, 20);
+                w = core.createNewWindow(name, 200, 300, core.screen_width - 220, 20);
                 StackPanel p = new StackPanel();
 
                 RichTextBox tb = new RichTextBox();
@@ -66,7 +61,6 @@ namespace Plugin
                 Style noSpaceStyle = new Style(typeof(Paragraph));
                 noSpaceStyle.Setters.Add(new Setter(Paragraph.MarginProperty, new Thickness(0)));
                 tb.Resources.Add(typeof(Paragraph), noSpaceStyle);
-
 
                 tb.Height = w.Height;
                 tb.Width = w.Width;
@@ -81,8 +75,6 @@ namespace Plugin
                     TextRange a = new TextRange(tb.Document.ContentStart, tb.Document.ContentEnd);
                     settings.savedText = a.Text.ToString();
                 };
-
-
 
                 p.UpdateLayout();
                 w.Content = p;

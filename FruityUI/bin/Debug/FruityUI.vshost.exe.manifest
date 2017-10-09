@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <asmv1:assembly xsi:schemaLocation="urn:schemas-microsoft-com:asm.v1 assembly.adaptive.xsd" manifestVersion="1.0" xmlns:asmv1="urn:schemas-microsoft-com:asm.v1" xmlns="urn:schemas-microsoft-com:asm.v2" xmlns:asmv2="urn:schemas-microsoft-com:asm.v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:co.v1="urn:schemas-microsoft-com:clickonce.v1" xmlns:asmv3="urn:schemas-microsoft-com:asm.v3" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:co.v2="urn:schemas-microsoft-com:clickonce.v2">
-  <asmv1:assemblyIdentity name="FruityUI.exe" version="1.0.0.4" publicKeyToken="0000000000000000" language="en" processorArchitecture="msil" type="win32" />
+  <asmv1:assemblyIdentity name="FruityUI.exe" version="1.0.0.6" publicKeyToken="0000000000000000" language="en" processorArchitecture="msil" type="win32" />
   <description asmv2:publisher="LegitSoulja" co.v1:suiteName="LegitSoulja" asmv2:product="FruityUI" asmv2:supportUrl="http://fruityui.legitsoulja.info/" co.v1:errorReportUrl="http://fruityui.legitsoulja.info/help/" xmlns="urn:schemas-microsoft-com:asm.v1" />
   <application />
   <entryPoint>
@@ -51,31 +51,19 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>55mMNR9ckw14Re8bwBEyUkdu1PXCTimzyH2+TFYAN7g=</dsig:DigestValue>
+        <dsig:DigestValue>uK0jX3+SkrJygMTLCPzSsnU6ZnJIGUOLN1Fbbw4Wwv8=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="DevComponents.WPF.Controls.dll" size="1682744">
-      <assemblyIdentity name="DevComponents.WPF.Controls" version="7.9.0.36" publicKeyToken="65042117D0A83CBC" language="neutral" processorArchitecture="msil" />
-      <hash>
-        <dsig:Transforms>
-          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-        </dsig:Transforms>
-        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>0j7L/JyMYYaZpNlYovjHgiBKwpB3gLkulZCMD8NtzPA=</dsig:DigestValue>
-      </hash>
-    </dependentAssembly>
-  </dependency>
-  <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="FruityUI.exe" size="48128">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="FruityUI.exe" size="49664">
       <assemblyIdentity name="FruityUI" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>shPVGp0eB4VH4GR3gI1YqiqlmblptMboxEAWEycg7rI=</dsig:DigestValue>
+        <dsig:DigestValue>sjnJNIQCWZZcU3bz2puhbpq9Xh1SDG4SVpCRPcMsMwY=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

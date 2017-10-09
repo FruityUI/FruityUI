@@ -14,13 +14,12 @@ namespace FruityUI
     class Menu
     {
 
-        private bool IsOpen = false;
-
+        public bool IsOpen = false;
 
         protected static Rectangle rec;
         protected static Viewbox view;
 
-        public Menu(Rectangle _rec, Viewbox _view)
+        public Menu(Rectangle _rec, Viewbox _view, Action updateScreen)
         {
 
             rec = _rec;
@@ -31,9 +30,9 @@ namespace FruityUI
             rec.MouseEnter += (s, e) =>
             {
                 if (!IsOpen)
-                {
                     openMenu();
-                }
+
+                updateScreen();
             };
 
         }

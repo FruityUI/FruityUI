@@ -51,6 +51,7 @@
     <Compile Include="Abstract\Window.cs" />
     <Compile Include="Controls\Window.cs" />
     <Compile Include="Core.cs" />
+    <Compile Include="DGBConsole.cs" />
     <Compile Include="IPlugin.cs" />
     <Compile Include="ISettings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

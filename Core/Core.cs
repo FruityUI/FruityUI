@@ -69,8 +69,7 @@ namespace FruityUI
                 {
                     Type t = i.GetType();
                     PropertyInfo prop = t.GetProperty(a.Name);
-                    if (prop == null) continue;
-                    if (!prop.CanWrite) continue;
+                    if (prop == null || !prop.CanWrite) continue;
                     string insert = (string)a.Value;
                     prop.SetValue(i, insert, null);
                     
@@ -98,6 +97,9 @@ namespace FruityUI
         public void Dispose()
         {
             _onSecond.Stop();
+            _onMinute.Stop();
+            _onSecond.Dispose();
+            _onMinute.Dispose();
             GC.SuppressFinalize(this);
         }
 

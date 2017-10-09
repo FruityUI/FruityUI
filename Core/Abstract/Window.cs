@@ -12,7 +12,7 @@ using System.Windows.Media;
 namespace FruityUI.CCore.Abstract
 {
 
-    // Keep Window Back
+    // Keep Window Back (Does not work properly with Windows 10)
     struct KWB_FLAGS
     {
         public const UInt32 SWP_NOSIZE = 0x0001;
@@ -26,7 +26,6 @@ namespace FruityUI.CCore.Abstract
 
     public abstract class Window : System.Windows.Window
     {
-
 
         public static IEnumerable<T> FindVisualChildren<T>(DependencyObject depObj) where T : DependencyObject
         {

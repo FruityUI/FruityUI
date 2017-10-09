@@ -36,15 +36,29 @@ namespace FruityUI
         private Dictionary<string, dynamic> settings = new Dictionary<string, dynamic>();
         private bool up4reset = false;
 
-        private Pages.Debugger debugger;
-        private Pages.Installer installer;
-        private Pages.Plugins pluginspage;
+        private Pages.Debugger debugger_page;
+        private Pages.Installer installer_page;
+        private Pages.Plugins plugins_page;
+        private Pages.Settings settings_page;
+        private Menu m;
+
+        FruityUI.DGBConsole console = new DGBConsole();
 
         public MainWindow()
         {
             InitializeComponent();
 
-            if(!string.IsNullOrEmpty(Properties.Settings.Default.settings))
+            debugger_page = new Pages.Debugger();
+
+            if (!console.isDebugging)
+                Console.SetOut(console);
+
+            console.output += (s, e) =>
+            {
+                debugger_page.log(e);
+            };
+
+            if (!string.IsNullOrEmpty(Properties.Settings.Default.settings))
             {
                 if (Properties.Settings.Default.settings.Length > 2)
                 {
@@ -81,28 +95,46 @@ namespace FruityUI
             Closing += terminate;
 
 
-            installer = new Pages.Installer(this);
-            debugger = new Pages.Debugger();
-            pluginspage = new Pages.Plugins();
-            Menu m = new Menu(mButton, xMenu);
+            installer_page = new Pages.Installer(this);
+            plugins_page = new Pages.Plugins();
+            settings_page = new Pages.Settings();
+            m = new Menu(mButton, xMenu, updateScreen);
 
-            SizeChanged += (s, e) =>
+            SizeChanged += (s, e) => updateScreen();
+
+            frame.Content = installer_page;
+
+            install_plugins_btn.Click += (s, e) => frame.Content = installer_page;
+            debug_btn.Click += (s, e) => frame.Content = debugger_page;
+            plugins_btn.Click += (s, e) => frame.Content = plugins_page;
+            settings_btn.Click += (s, e) => frame.Content = settings_page;
+
+            closeMenu.Click += (s, e) =>
             {
-                double x = (Width - 5);
-                x -= xMenu.Width + 5;
-                frame.Width = x;
+                m.closeMenu();
+                new Thread(() =>
+                {
+                    Thread.Sleep(500);
+                    Application.Current.Dispatcher.Invoke(() => { updateScreen(); });
+                }).Start(); ;
             };
 
-            frame.Content = installer;
-
-            install_plugins_btn.Click += (s, e) => frame.Content = installer;
-            debug_btn.Click += (s, e) => frame.Content = debugger;
-            plugins_btn.Click += (s, e) => frame.Content = pluginspage;
-
+            console.output += (s, e) =>
+            {
+                debugger_page.log(e);
+            };
 
 
-            closeMenu.Click += (s, e) => m.closeMenu();
 
+        }
+
+        public void updateScreen()
+        {
+            double x = (Width - 10);
+            if (m.IsOpen)
+                x -= xMenu.Width;
+            else x -= xMenu.Width / 2;
+            frame.Width = x;
         }
 
         public void set4Reset()
@@ -169,7 +201,7 @@ namespace FruityUI
 
                 foreach(Type t in a.GetTypes())
                 {
-                    if (!t.IsClass && t.IsNotPublic) continue;
+                    if (!t.IsClass || t.IsNotPublic) continue;
                     if (plugins.IndexOf(t as FruityUI.IPlugin) > -1 || loadedLibraries.IndexOf(i) > -1)
                     {
                         MessageBox.Show("Duplicate plugin found. Ignored loading another instance.");
@@ -180,14 +212,15 @@ namespace FruityUI
                         try
                         {
                             plugins.Add((Activator.CreateInstance(t, core) as FruityUI.IPlugin));
-                        }catch(Exception ex)
+                            DynamicLinkLibrary.Add(i);
+                            loadedLibraries.Add(i);
+                            Console.WriteLine("Plugin <{0}> loaded.", t.Name);
+                        }
+                        catch(Exception ex)
                         {
                             MessageBox.Show("Error occured within the plugin '" + t.Assembly.FullName + "'. " + ex.Message);
                             return;
                         }
-                        DynamicLinkLibrary.Add(i);
-                        loadedLibraries.Add(i);
-                        Console.WriteLine("Plugin <{0}> loaded.", t.Name);
                         return;
                     }else
                     {
