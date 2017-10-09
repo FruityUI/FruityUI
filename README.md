@@ -1,9 +1,10 @@
 <img align="right" width="200" height="auto"  alt='#' title='&copy;FruityUI' src="http://fruityui.legitsoulja.info/fruityui.png">
-
-<p align='center' style='color:red'>
-<h1 align='center' style='font-weight: bold'>FruityUI</h1>
-<br/>
-<p align='center'><img align='center' src="https://travis-ci.org/FruityUI/FruityUI.svg?branch=master">&nbsp;<img align='center' src="http://fruityui.legitsoulja.info/publish/version.php"></p>
+<p align='center'>
+    <h1 align='center'>FruityUI</h1>
+    <p align='center'>
+        <img align='center' src="https://travis-ci.org/FruityUI/FruityUI.svg?branch=master">&nbsp;
+        <img align='center' src="http://fruityui.legitsoulja.info/publish/version.php">
+    </p>
 </p>
 
 > _Under Development_
