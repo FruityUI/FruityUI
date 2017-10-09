@@ -20,9 +20,12 @@ namespace FruityUI.Pages
     /// </summary>
     public partial class Installer : Page
     {
-        public Installer()
+        public Installer(MainWindow w)
         {
             InitializeComponent();
+
+            button.Click += (s, e) => w.getLibrary();
+            button1.Click += (s, e) => w.set4Reset();
         }
     }
 }

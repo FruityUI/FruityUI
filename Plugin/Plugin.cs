@@ -10,6 +10,7 @@ using System.Windows.Controls;
 using Newtonsoft.Json;
 using System.Reflection;
 using System.Windows.Documents;
+using System.Windows.Media;
 
 namespace Plugin
 {
@@ -46,6 +47,7 @@ namespace Plugin
         protected static Core core;
         private Window w;
 
+
         public StickyNote(Core _core)
         {
             try
@@ -79,6 +81,8 @@ namespace Plugin
                     TextRange a = new TextRange(tb.Document.ContentStart, tb.Document.ContentEnd);
                     settings.savedText = a.Text.ToString();
                 };
+
+
 
                 p.UpdateLayout();
                 w.Content = p;

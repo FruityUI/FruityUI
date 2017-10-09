@@ -51,7 +51,7 @@ namespace FruityUI
 
         private void onMinuteEvent(Object s, ElapsedEventArgs e)
         {
-            if (onSecond != null)
+            if (onMinute != null)
                 onMinute(s, e);
         }
 
@@ -73,6 +73,7 @@ namespace FruityUI
                     if (!prop.CanWrite) continue;
                     string insert = (string)a.Value;
                     prop.SetValue(i, insert, null);
+                    
                 }
             }
         }

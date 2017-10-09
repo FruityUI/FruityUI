@@ -18,6 +18,7 @@ namespace FruityUI.CCore.Controls
         private SolidColorBrush background = new SolidColorBrush(Colors.Transparent);
 
         public FruityWindow(string name, int width, int height, int x = 0, int y = 0, bool hide = false) : base() {
+
             Hide();
             menu.Items.Add(close);
             AllowsTransparency = true;
@@ -30,7 +31,7 @@ namespace FruityUI.CCore.Controls
             Left = x;
             Top = y;
             Background = background;
-            SetBottom(this);
+            SendToBack(this);
             this.MouseUp += onMouseUp;
             close.Click += (s, e) => Close();
             if (!hide)
@@ -49,14 +50,14 @@ namespace FruityUI.CCore.Controls
 
         public void Invoke(Action a)
         {
-            a();
+            Application.Current.Dispatcher.Invoke((Action)delegate ()
+            { a(); });
         }
 
         public void Dispose()
         {
             GC.SuppressFinalize(this);
         }
-
 
     }
 }

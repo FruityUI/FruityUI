@@ -9,6 +9,8 @@
       Title="Installer">
 
     <Grid>
-        
+        <Button x:Name="button" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="75" Content="Load Plugin"/>
+        <Button x:Name="button1" Content="Reset" HorizontalAlignment="Left" Margin="90,10,0,0" VerticalAlignment="Top" Width="75"/>
+
     </Grid>
 </Page>

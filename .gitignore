@@ -4,6 +4,6 @@
 *.sln.docstates
 
 .vs
- FruityUI/obj
- Plugin/obj
- Core/obj
+FruityUI/obj
+Plugin/obj
+Core/obj

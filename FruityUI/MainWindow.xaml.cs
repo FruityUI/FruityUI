@@ -21,6 +21,7 @@ using System.Threading;
 using System.Diagnostics;
 
 using FruityUI.CCore.Controls;
+using System.Windows.Media.Animation;
 
 namespace FruityUI
 {
@@ -34,6 +35,10 @@ namespace FruityUI
         private Core core;
         private Dictionary<string, dynamic> settings = new Dictionary<string, dynamic>();
         private bool up4reset = false;
+
+        private Pages.Debugger debugger;
+        private Pages.Installer installer;
+        private Pages.Plugins pluginspage;
 
         public MainWindow()
         {
@@ -75,22 +80,40 @@ namespace FruityUI
 
             Closing += terminate;
 
-            button.Click += (s, e) =>
+
+            installer = new Pages.Installer(this);
+            debugger = new Pages.Debugger();
+            pluginspage = new Pages.Plugins();
+            Menu m = new Menu(mButton, xMenu);
+
+            SizeChanged += (s, e) =>
             {
-                getLibrary();
+                double x = (Width - 5);
+                x -= xMenu.Width + 5;
+                frame.Width = x;
             };
 
-            button1.Click += (s, e) =>
-            {
-                up4reset = true;
-                Properties.Settings.Default.settings = "[]";
-                Properties.Settings.Default.dlls = "";
-                Properties.Settings.Default.Save();
-            };
+            frame.Content = installer;
+
+            install_plugins_btn.Click += (s, e) => frame.Content = installer;
+            debug_btn.Click += (s, e) => frame.Content = debugger;
+            plugins_btn.Click += (s, e) => frame.Content = pluginspage;
+
+
+
+            closeMenu.Click += (s, e) => m.closeMenu();
 
         }
 
-        private void getLibrary()
+        public void set4Reset()
+        {
+            up4reset = true;
+            Properties.Settings.Default.settings = "[]";
+            Properties.Settings.Default.dlls = "";
+            Properties.Settings.Default.Save();
+        }
+
+        public void getLibrary()
         {
 
             OpenFileDialog ofd = new OpenFileDialog();
