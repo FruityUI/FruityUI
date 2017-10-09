@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace FruityUI
 {
-    public class DGBConsole : TextWriter
+    public class DBGConsole : TextWriter
     {
 
         private TextWriter originalOut = Console.Out;
@@ -21,7 +21,7 @@ namespace FruityUI
 
         public event EventHandler<string> output;
 
-        public DGBConsole()
+        public DBGConsole()
         {
             _isDebugging = System.Diagnostics.Debugger.IsAttached;
         }
@@ -29,12 +29,17 @@ namespace FruityUI
         public override void WriteLine(string a)
         {
             if (_isDebugging)
-                originalOut.WriteLine(a);
-            else
-                if (output != null)
             {
-                output(this, a);
+                originalOut.WriteLine(a);
             }
+            else
+            {
+                if (output != null)
+                {
+                    output(this, a);
+                }
+            }
+                
                 
         }
 

@@ -24,6 +24,7 @@ namespace FruityUI.Pages
 
     public partial class Debugger : Page
     {
+
         public Debugger()
         {
             InitializeComponent();

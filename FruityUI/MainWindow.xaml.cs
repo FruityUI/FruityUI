@@ -42,21 +42,28 @@ namespace FruityUI
         private Pages.Settings settings_page;
         private Menu m;
 
-        FruityUI.DGBConsole console = new DGBConsole();
+        FruityUI.DBGConsole console = new DBGConsole();
 
         public MainWindow()
         {
             InitializeComponent();
 
+            DateTime start = DateTime.Now;
+
+            this.WindowState = WindowState.Minimized;
+            this.ShowInTaskbar = true;
+
             debugger_page = new Pages.Debugger();
 
             if (!console.isDebugging)
-                Console.SetOut(console);
-
-            console.output += (s, e) =>
             {
-                debugger_page.log(e);
-            };
+                Console.SetOut(console);
+                console.output += (s, e) =>
+                {
+                    debugger_page.log(e);
+                };
+            }
+            else debugger_page.log("FruityUI is in debug mode. Logging is shown in the console.");
 
             if (!string.IsNullOrEmpty(Properties.Settings.Default.settings))
             {
@@ -73,9 +80,6 @@ namespace FruityUI
                 }
             }
 
-
-            this.WindowState = WindowState.Minimized;
-            this.ShowInTaskbar = true;
             core = new FruityUI.Core(settings);
 
             core.dbUpdate += (s, e) =>
@@ -118,13 +122,7 @@ namespace FruityUI
                     Application.Current.Dispatcher.Invoke(() => { updateScreen(); });
                 }).Start(); ;
             };
-
-            console.output += (s, e) =>
-            {
-                debugger_page.log(e);
-            };
-
-
+            Console.WriteLine("FruityUI loaded in " + (DateTime.Now - start).TotalSeconds + "s");
 
         }
 
@@ -214,11 +212,12 @@ namespace FruityUI
                             plugins.Add((Activator.CreateInstance(t, core) as FruityUI.IPlugin));
                             DynamicLinkLibrary.Add(i);
                             loadedLibraries.Add(i);
-                            Console.WriteLine("Plugin <{0}> loaded.", t.Name);
+                            Console.WriteLine("Plugin <"+t.Name+"> loaded.");
                         }
                         catch(Exception ex)
                         {
-                            MessageBox.Show("Error occured within the plugin '" + t.Assembly.FullName + "'. " + ex.Message);
+                            MessageBox.Show("Error occured within the plugin <" + t.Name + ">. " + ex.Message);
+                            Console.WriteLine("Error occured within the plugin <" + t.Name + ">. " + ex.Message);
                             return;
                         }
                         return;
@@ -227,11 +226,13 @@ namespace FruityUI
                         if (a.GetTypes().Last() != t)
                             continue;
                         MessageBox.Show("Plugin loaded does not extend IPlugin");
+                        Console.WriteLine("Plugin loaded does not extend IPlugin");
                         return;
                     }
                 }
 
                 MessageBox.Show("Invalid dynamic link library @ " + i);
+                Console.WriteLine("Invalid dynamic link library @ " + i);
 
             }catch(Exception ex)
             {
