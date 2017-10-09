@@ -5,5 +5,6 @@
 
 .vs
 FruityUI/obj
+FruityUI/bin/Debug/app.publish
 Plugin/obj
 Core/obj
