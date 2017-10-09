@@ -1,5 +1,6 @@
 language: csharp
 script:
 - xbuild FruityUI.sln /p:Configuration=Debug /p:Platform="Any CPU"
+- xbuild FruityUI.sln /p:Configuration=Debug /p:Platform="Any CPU"
 install:
   - nuget restore FruityUI.sln
