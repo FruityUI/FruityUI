@@ -1,0 +1,4 @@
+language: csharp
+solution: FruityUI.sln
+install:
+  - nuget restore FruityUI.sln
