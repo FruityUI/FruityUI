@@ -3,7 +3,7 @@
     <h1 align='center'>FruityUI</h1>
     <p align='center'>
         <img align='center' src="https://travis-ci.org/FruityUI/FruityUI.svg?branch=master">
-        <img align='center' src="http://fruityui.legitsoulja.info/publish/version.php">
+        <img align='center' src="http://fruityui.legitsoulja.info/publish/version.php?s">
     </p>
     <p align='center'>< <i>Under Development</i> ></p>
 </p>
