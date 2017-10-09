@@ -44,14 +44,13 @@ namespace FruityUI
 
         FruityUI.DBGConsole console = new DBGConsole();
 
-        public MainWindow()
+        public MainWindow(SplashScreen ss)
         {
             InitializeComponent();
 
             DateTime start = DateTime.Now;
 
             this.WindowState = WindowState.Minimized;
-            this.ShowInTaskbar = true;
 
             debugger_page = new Pages.Debugger();
 
@@ -123,7 +122,9 @@ namespace FruityUI
                 }).Start(); ;
             };
             Console.WriteLine("FruityUI loaded in " + (DateTime.Now - start).TotalSeconds + "s");
-
+            ss.Close();
+            this.Show();
+            ShowInTaskbar = true;
         }
 
         public void updateScreen()

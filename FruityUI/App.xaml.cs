@@ -17,13 +17,18 @@ namespace FruityUI
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
+
+            SplashScreen ss = new SplashScreen();
+            ss.Show();
+
             if ((Process.GetProcessesByName(Process.GetCurrentProcess().ProcessName)).Length >= 2)
             {
                 MessageBox.Show("Cannot run 2 instances of FruityUI");
+                ss.Close();
                 Environment.Exit(0);
             }
 
-            FruityUI.MainWindow w = new FruityUI.MainWindow();
+            FruityUI.MainWindow w = new FruityUI.MainWindow(ss);
             w.Show();
 
         }
