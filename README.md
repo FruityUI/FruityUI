@@ -1,5 +1,5 @@
 
-<img align="right" width="200" height="auto" src="http://fruityui.legitsoulja.info/fruityui.png">
+<img align="right" width="200" height="auto" style='position:absolute;' alt='#' title='&copy;FruityUI' src="http://fruityui.legitsoulja.info/fruityui.png">
 
 # FruityUI
 
