@@ -1,3 +1,6 @@
+
+<img align="right" width="200" height="auto" src="http://fruityui.legitsoulja.info/fruityui.png">
+
 # FruityUI
 
 ![Build](https://travis-ci.org/FruityUI/FruityUI.svg?branch=master) ![Version](http://fruityui.legitsoulja.info/publish/version.php)
