@@ -11,6 +11,7 @@ namespace FruityUI
     {
 
         private TextWriter originalOut = Console.Out;
+
         private bool _isDebugging = false;
         public bool isDebugging { get { return _isDebugging; } }
 
@@ -35,12 +36,9 @@ namespace FruityUI
             else
             {
                 if (output != null)
-                {
                     output(this, a);
-                }
             }
-                
-                
+
         }
 
     }

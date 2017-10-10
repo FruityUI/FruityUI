@@ -29,6 +29,7 @@ namespace FruityUI
         public int screen_width = Convert.ToInt32(System.Windows.SystemParameters.PrimaryScreenWidth);
         public int screen_height = Convert.ToInt32(System.Windows.SystemParameters.PrimaryScreenHeight);
 
+
         public event EventHandler<ISettings> dbUpdate;
         public event EventHandler<ElapsedEventArgs> onSecond;
         public event EventHandler<ElapsedEventArgs> onMinute;

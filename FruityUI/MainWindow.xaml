@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FruityUI"
         x:Class="FruityUI.MainWindow"
+    WindowState="Minimized"
         ShowInTaskbar="True"
         mc:Ignorable="d"
         Title="FruityUI" Height="350" Width="525" MaxHeight="350" MaxWidth="1200">

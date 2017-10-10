@@ -19,6 +19,9 @@ namespace FruityUI
         protected static Rectangle rec;
         protected static Viewbox view;
 
+        private DoubleAnimation openAnimation = new DoubleAnimation(0.9, (Duration)TimeSpan.FromSeconds(0.5));
+        private DoubleAnimation closeAnimation = new DoubleAnimation(0.0, (Duration)TimeSpan.FromSeconds(0.5));
+
         public Menu(Rectangle _rec, Viewbox _view, Action updateScreen)
         {
 
@@ -40,16 +43,14 @@ namespace FruityUI
         public void openMenu()
         {
             if (IsOpen) return;
-            var anim = new DoubleAnimation(0.9, (Duration)TimeSpan.FromSeconds(0.5));
-            view.BeginAnimation(UIElement.OpacityProperty, anim);
+            view.BeginAnimation(UIElement.OpacityProperty, openAnimation);
             IsOpen = true;
         }
 
         public void closeMenu()
         {
             if (!IsOpen) return;
-            var anim = new DoubleAnimation(0.0, (Duration)TimeSpan.FromSeconds(0.5));
-            view.BeginAnimation(UIElement.OpacityProperty, anim);
+            view.BeginAnimation(UIElement.OpacityProperty, closeAnimation);
             IsOpen = false;
         }
 

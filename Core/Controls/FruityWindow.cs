@@ -44,6 +44,7 @@ namespace FruityUI.CCore.Controls
             {
                 if (menu.IsOpen) return;
                 menu.IsOpen = true;
+                return;
             }
             menu.IsOpen = false;
         }

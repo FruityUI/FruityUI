@@ -50,32 +50,22 @@ namespace FruityUI
 
             DateTime start = DateTime.Now;
 
-            this.WindowState = WindowState.Minimized;
-
             debugger_page = new Pages.Debugger();
 
             if (!console.isDebugging)
             {
                 Console.SetOut(console);
-                console.output += (s, e) =>
-                {
-                    debugger_page.log(e);
-                };
+                console.output += (s, e) => debugger_page.log(e);
             }
             else debugger_page.log("FruityUI is in debug mode. Logging is shown in the console.");
 
-            if (!string.IsNullOrEmpty(Properties.Settings.Default.settings))
+            if (Properties.Settings.Default.settings != null && Properties.Settings.Default.settings != String.Empty)
             {
                 if (Properties.Settings.Default.settings.Length > 2)
                 {
                     dynamic d = JsonConvert.DeserializeObject(Properties.Settings.Default.settings);
                     foreach (var i in d)
-                    {
-                        string key = i.Key;
-                        string value = i.Value;
-                        dynamic data = JsonConvert.DeserializeObject(value);
-                        settings.Add(key, data);
-                    }
+                        settings.Add(i.Key as string, JsonConvert.DeserializeObject(i.Value as string) as dynamic);
                 }
             }
 
@@ -83,13 +73,12 @@ namespace FruityUI
 
             core.dbUpdate += (s, e) =>
             {
-
                 if (settings.ContainsKey(e.database)) settings[e.database] = JsonConvert.SerializeObject(e);
                 else settings.Add(e.database, JsonConvert.SerializeObject(e));
                 save();
             };
 
-            if (!string.IsNullOrEmpty(Properties.Settings.Default.dlls))
+            if (Properties.Settings.Default.dlls != null && Properties.Settings.Default.dlls != String.Empty)
                 DynamicLinkLibrary = new List<string>(Properties.Settings.Default.dlls.Split('|'));
 
             if(DynamicLinkLibrary.Count() >= 1)
@@ -97,10 +86,10 @@ namespace FruityUI
 
             Closing += terminate;
 
-
             installer_page = new Pages.Installer(this);
             plugins_page = new Pages.Plugins();
             settings_page = new Pages.Settings();
+
             m = new Menu(mButton, xMenu, updateScreen);
 
             SizeChanged += (s, e) => updateScreen();
@@ -121,18 +110,15 @@ namespace FruityUI
                     Application.Current.Dispatcher.Invoke(() => { updateScreen(); });
                 }).Start(); ;
             };
+
             Console.WriteLine("FruityUI loaded in " + (DateTime.Now - start).TotalSeconds + "s");
             ss.Close();
-            this.Show();
-            ShowInTaskbar = true;
         }
 
-        public void updateScreen()
+        private void updateScreen()
         {
             double x = (Width - 10);
-            if (m.IsOpen)
-                x -= xMenu.Width;
-            else x -= xMenu.Width / 2;
+            x -= (m.IsOpen) ? xMenu.Width : (xMenu.Width / 2);
             frame.Width = x;
         }
 
@@ -140,13 +126,12 @@ namespace FruityUI
         {
             up4reset = true;
             Properties.Settings.Default.settings = "[]";
-            Properties.Settings.Default.dlls = "";
+            Properties.Settings.Default.dlls = String.Empty;
             Properties.Settings.Default.Save();
         }
 
         public void getLibrary()
         {
-
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.Filter = "(IPlugin) | *.dll";
             ofd.ShowDialog();
@@ -237,6 +222,7 @@ namespace FruityUI
 
             }catch(Exception ex)
             {
+                MessageBox.Show("Failed to load plugin. " + ex.Message);
                 Console.WriteLine("Failed. " + ex.Message);
             }
 

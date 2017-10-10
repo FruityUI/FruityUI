@@ -12,17 +12,6 @@ using System.Windows.Media;
 namespace FruityUI.CCore.Abstract
 {
 
-    // Keep Window Back (Does not work properly with Windows 10)
-    struct KWB_FLAGS
-    {
-        public const UInt32 SWP_NOSIZE = 0x0001;
-        public const UInt32 SWP_NOMOVE = 0x0002;
-        public const UInt32 SWP_NOACTIVATE = 0x0010;
-        public static readonly IntPtr HWND_BOTTOM = new IntPtr(1);
-
-        [DllImport("user32.dll")]
-        public static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int X, int Y, int cx, int cy, uint uFlags);
-    }
 
     public abstract class Window : System.Windows.Window
     {
@@ -49,10 +38,18 @@ namespace FruityUI.CCore.Abstract
             }
         }
 
+        private const UInt32 SWP_NOSIZE = 0x0001;
+        private const UInt32 SWP_NOMOVE = 0x0002;
+        private const UInt32 SWP_NOACTIVATE = 0x0010;
+        private static readonly IntPtr HWND_BOTTOM = new IntPtr(1);
+
+        [DllImport("user32.dll")]
+        private static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int X, int Y, int cx, int cy, uint uFlags);
+
         public void SendToBack(CCore.Controls.FruityWindow window)
         {
             IntPtr hWnd = new WindowInteropHelper(window).Handle;
-            KWB_FLAGS.SetWindowPos(hWnd, KWB_FLAGS.HWND_BOTTOM, 0, 0, 0, 0, KWB_FLAGS.SWP_NOSIZE | KWB_FLAGS.SWP_NOMOVE | KWB_FLAGS.SWP_NOACTIVATE);
+            SetWindowPos(hWnd, HWND_BOTTOM, 0, 0, 0, 0, SWP_NOSIZE | SWP_NOMOVE | SWP_NOACTIVATE);
         }
 
         public MenuItem close = new MenuItem()

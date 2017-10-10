@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <asmv1:assembly xsi:schemaLocation="urn:schemas-microsoft-com:asm.v1 assembly.adaptive.xsd" manifestVersion="1.0" xmlns:asmv1="urn:schemas-microsoft-com:asm.v1" xmlns="urn:schemas-microsoft-com:asm.v2" xmlns:asmv2="urn:schemas-microsoft-com:asm.v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:co.v1="urn:schemas-microsoft-com:clickonce.v1" xmlns:asmv3="urn:schemas-microsoft-com:asm.v3" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:co.v2="urn:schemas-microsoft-com:clickonce.v2">
-  <asmv1:assemblyIdentity name="FruityUI.exe" version="1.0.0.8" publicKeyToken="0000000000000000" language="en" processorArchitecture="msil" type="win32" />
-  <description asmv2:publisher="LegitSoulja" co.v1:suiteName="LegitSoulja" asmv2:product="FruityUI" asmv2:supportUrl="http://fruityui.legitsoulja.info/" co.v1:errorReportUrl="http://fruityui.legitsoulja.info/help/" xmlns="urn:schemas-microsoft-com:asm.v1" />
+  <asmv1:assemblyIdentity name="FruityUI.exe" version="1.0.0.9" publicKeyToken="0000000000000000" language="en" processorArchitecture="msil" type="win32" />
+  <description asmv2:iconFile="fruityuiicon_guU_icon.ico" asmv2:publisher="LegitSoulja" co.v1:suiteName="LegitSoulja" asmv2:product="FruityUI" asmv2:supportUrl="http://fruityui.legitsoulja.info/" co.v1:errorReportUrl="http://fruityui.legitsoulja.info/help/" xmlns="urn:schemas-microsoft-com:asm.v1" />
   <application />
   <entryPoint>
     <assemblyIdentity name="FruityUI" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
@@ -56,14 +56,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="FruityUI.exe" size="227840">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="FruityUI.exe" size="273920">
       <assemblyIdentity name="FruityUI" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>R3f6Ygoq3ZO9Lcv8X4VD/7RLJABrow80HEEwcC9X+Fg=</dsig:DigestValue>
+        <dsig:DigestValue>8fb8n6eNNIWOYqngvvyZJB4hUgazVVPFpwJj4JbCE4c=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -86,6 +86,15 @@
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
       <dsig:DigestValue>ajTJl8jxu+LAoanknW7Sf6PEhZzSlRydQD5RHuZu1Is=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="fruityuiicon_guU_icon.ico" size="22778">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>lDTnDT/atA46Sg4K+2F62Zfxfnm7q0x/Le0B7o5ULeE=</dsig:DigestValue>
     </hash>
   </file>
 </asmv1:assembly>
