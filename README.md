@@ -4,6 +4,7 @@
     <p align='center'>
         <img align='center' src="http://fruityui.legitsoulja.info/publish/version.php?s=b&type=flat-square">
     </p>
+    <p align='center'>< <i>Under Development</i> > </p>
 </p>
 
 What is FruityUI? Ever wanted to customize your desktop with components? FruityUI can accomplish that. FruityUI is similar to [RainMeter](https://www.rainmeter.net/). Don't get rainmeter! FruityUI is or atleast should be better, and faster than RainMeter. 
