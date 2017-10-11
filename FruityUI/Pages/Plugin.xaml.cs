@@ -24,5 +24,11 @@ namespace FruityUI.Pages
         {
             InitializeComponent();
         }
+
+        public void addPlugin(MainWindow w, string name, int index)
+        {
+            panel.Children.Add(new FruityUI.Plugin(w, name, index));
+
+        }
     }
 }

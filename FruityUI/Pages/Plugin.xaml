@@ -9,6 +9,10 @@
       Title="Plugins">
 
     <Grid>
-        
+        <Viewbox HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <StackPanel x:Name="panel" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="300" Height="300">
+            </StackPanel>
+        </Viewbox>
+
     </Grid>
 </Page>

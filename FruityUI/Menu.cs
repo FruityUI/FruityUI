@@ -43,6 +43,7 @@ namespace FruityUI
         public void openMenu()
         {
             if (IsOpen) return;
+            view.Visibility = Visibility.Visible;
             view.BeginAnimation(UIElement.OpacityProperty, openAnimation);
             IsOpen = true;
         }

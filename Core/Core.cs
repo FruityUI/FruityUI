@@ -34,6 +34,7 @@ namespace FruityUI
         public event EventHandler<ElapsedEventArgs> onSecond;
         public event EventHandler<ElapsedEventArgs> onMinute;
 
+
         public Core(Dictionary<string, dynamic> _settings)
         {
             settings = _settings;

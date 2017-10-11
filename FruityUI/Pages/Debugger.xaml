@@ -9,6 +9,6 @@
       Title="Debugger">
 
     <Grid>
-        <RichTextBox x:Name="rtb" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" IsReadOnly="True"></RichTextBox>
+        <RichTextBox x:Name="rtb" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" IsReadOnly="True" BorderThickness="0"></RichTextBox>
     </Grid>
 </Page>

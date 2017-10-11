@@ -46,5 +46,17 @@ namespace FruityUI.Properties {
                 this["settings"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool isNew {
+            get {
+                return ((bool)(this["isNew"]));
+            }
+            set {
+                this["isNew"] = value;
+            }
+        }
     }
 }

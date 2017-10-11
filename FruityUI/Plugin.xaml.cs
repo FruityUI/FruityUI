@@ -10,19 +10,19 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace FruityUI
 {
     /// <summary>
-    /// Interaction logic for SplashScreen.xaml
+    /// Interaction logic for Plugin.xaml
     /// </summary>
-    public partial class SplashScreen : Window
+    public partial class Plugin : UserControl
     {
-        public SplashScreen(Version v)
+        public Plugin(MainWindow w, string name, int index)
         {
             InitializeComponent();
-            version.Content = ((v != null) ? "v" + (String.Join(".", new string[4] { v.Major.ToString(), v.Minor.ToString(), v.Build.ToString(), v.Revision.ToString() })) : " Debug") ;
         }
     }
 }

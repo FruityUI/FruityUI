@@ -13,5 +13,6 @@
         Title="SplashScreen" Height="300" Width="300">
     <Grid>
         <Image Source="Assets/fruityui.png"></Image>
+        <Label x:Name="version" Margin="207,172,36,102" Content="" HorizontalAlignment="Center" VerticalAlignment="Center" Width="57" Background="{x:Null}" Foreground="White" ></Label>
     </Grid>
 </Window>

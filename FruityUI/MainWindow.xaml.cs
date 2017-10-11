@@ -42,7 +42,7 @@ namespace FruityUI
         private Pages.Settings settings_page;
         private Menu m;
 
-        FruityUI.DBGConsole console = new DBGConsole();
+        private FruityUI.DBGConsole console = new DBGConsole();
 
         public MainWindow(SplashScreen ss)
         {
@@ -107,7 +107,7 @@ namespace FruityUI
                 new Thread(() =>
                 {
                     Thread.Sleep(500);
-                    Application.Current.Dispatcher.Invoke(() => { updateScreen(); });
+                    Application.Current.Dispatcher.Invoke(() => { updateScreen(); xMenu.Visibility = Visibility.Hidden; });
                 }).Start(); ;
             };
 
@@ -118,7 +118,7 @@ namespace FruityUI
         private void updateScreen()
         {
             double x = (Width - 10);
-            x -= (m.IsOpen) ? xMenu.Width : (xMenu.Width / 2);
+            x -= (m.IsOpen) ? xMenu.Width : ((xMenu.Width / 2) - 15);
             frame.Width = x;
         }
 
