@@ -1,7 +1,7 @@
 <img align="right" width="200" height="auto"  alt='#' title='&copy;FruityUI' src="http://fruityui.legitsoulja.info/fruityui.png">
 <p align='center'>
     <h1 align='center'>FruityUI</h1>
-    <p>Moving to (FGUI)[https://github.com/FruityUI/FGUI].. This was a faill!!!!!</p>
+    <p>Moving to <a href='https://github.com/FruityUI/FGUI'>FGUI</a> .. This was a faill!!!!!</p>
     <p align='center'>< <i>Under Development</i> > </p>
 </p>
 
